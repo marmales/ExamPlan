@@ -1,0 +1,29 @@
+﻿@model Domain.Entities.Grade
+<html>
+<head>
+    <style>
+        .form-group{
+            height: 33px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid text-center">
+        <h3>Wpisz numer indeksu studenta: </h3>
+
+        
+            @using (Html.BeginForm("ListGrades", "Grade", FormMethod.Get))
+            {
+                @Html.TextBoxFor(x => x.StudentID, new { @class = "inputsm form-group col-sm-2 col-md-offset-5" })
+                <span class="col-sm-1 text-center">
+                    <button type="submit" class="btn btn-default" value="Zatwierdź">Zatwierdź</button>
+                </span>
+            }
+        
+    </div>
+</body>
+
+</html>
+
+

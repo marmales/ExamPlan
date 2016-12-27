@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+            width: 70%;
+            margin: auto;
+        }
+        .SetHeight{
+            height: 200px;
+            
+        }
+        body
+        {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel"> 
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <div class="carousel-inner SetHeight">
+            <div class="item active" role="listbox">
+                <img src="~/Images/mainHeader.jpg" alt="Chania1" />
+            </div>
+
+            <div class="item" role="listbox">
+                <img src="~/Images/head2.jpg" alt="Chania2"/>
+            </div>
+
+            <div class="item" role="listbox">
+                <img src="~/Images/head1.jpg" alt="Chania3"/>
+            </div>
+        </div>
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </a>
+    </div>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Exams Generator</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Generate","CalculateExamDate", "Exams")</li>
+                <li>@Html.ActionLink("Graphical Presentation","Graph", "Exams")</li>
+                <li>@Html.ActionLink("Grades", "Index", "Grade")</li>
+                <li>@Html.ActionLink("ER Diagram", "ER", "Tables")</li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Entities<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Studenci", "Students", "Tables")</li>
+                        <li>@Html.ActionLink("Zajęcia", "Classes", "Tables")</li>
+                        <li>@Html.ActionLink("Przedmioty", "Subjects", "Tables")</li>
+                        <li>@Html.ActionLink("Wykładowcy", "Lecturels", "Tables")</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+                <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <nav class="body-content">
+        @RenderBody()
+    </nav>
+    
+</body>
+</html>

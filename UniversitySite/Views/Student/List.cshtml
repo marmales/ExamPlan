@@ -1,0 +1,22 @@
+﻿@model UniversitySite.Models.StudentsListView
+@{
+    ViewBag.Title = "Studenci";
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="col-md-2">#</th>
+            <th class="col-md-3">Imię</th>
+            <th class="col-md-5">Nazwisko</th>
+            <th class="col-md-2"></th>
+        </tr>
+    </thead>
+    @foreach (var p in Model.Students)
+    {
+        @Html.Partial("StudentSummary", p)
+    }
+</table>
+<div class="btn-group pull-right">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+</div>
+

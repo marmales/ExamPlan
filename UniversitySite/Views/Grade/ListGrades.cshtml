@@ -1,0 +1,30 @@
+﻿@model UniversitySite.Models.GradesListView
+
+<h3>@ViewBag.StudentName</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            Nazwa przedmiotu
+        </th>
+        <th>Ocena</th>
+        <th>Data wprowadzenia oceny</th>
+    </tr>
+@foreach (var item in Model.StudentGrades) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject.SubjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Grade1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EntryDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { ID = item.GradeID }, FormMethod.Post)
+        </td>
+    </tr>
+}
+
+</table>

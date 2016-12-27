@@ -1,0 +1,15 @@
+﻿@model Domain.Entities.Grade
+
+@{ 
+    ViewBag.Title = Model.Student.FirstName + " " + Model.Student.LastName + " edycja";
+}
+
+@using (Html.BeginForm("Change", "Grade", new { ID = Model.GradeID }, FormMethod.Post))
+{
+    <p class="col-sm-1">Ocena z </p>
+    <p class="col-sm-4">@Model.Subject.SubjectName</p>
+    @Html.TextBox("mark", null, new { @class = "inputsm form-group col-sm-2" });
+    <span class="col-sm-1 text-center">
+        <button type="submit" class="btn btn-default" value="Edytuj">Edytuj</button>
+    </span>
+}

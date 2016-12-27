@@ -1,0 +1,27 @@
+﻿@model UniversitySite.Models.ExamsListView
+@{
+    ViewBag.Title = "Egzaminy";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="col-md-4">Egzamin</th>
+            <th class="col-md-3">Data</th>
+            <th class="col-md-5">Czas Trwania</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Exams)
+        {
+
+            <tr>
+                <td><span style="font-size: 15px" class="pull-left label label-primary">@item.Subject.SubjectName</span></td>
+                <td><strong>@item.DateAndHour</strong></td>
+                <td><strong>@item.Duration</strong></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

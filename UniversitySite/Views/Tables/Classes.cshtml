@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Domain.Entities.Class>
+
+
+<table class="table">
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subject.SubjectName)
+        </th>
+
+        <th>
+            Dzień Tygodnia
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeginTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassesLength)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Classroom)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LecturelID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject.SubjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DayOfWeek.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BeginTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassesLength)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Classroom)
+        </td>
+    </tr>
+}
+
+</table>
