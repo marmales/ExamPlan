@@ -1,3 +1,5 @@
+EDIT Code rafactoring in progress
+
 Welcome to my first ASP.NET Application. It's made all by myself.
 
 I created this web application for generating exam dates and hours for university. The biggest problem to prearrange exam date
