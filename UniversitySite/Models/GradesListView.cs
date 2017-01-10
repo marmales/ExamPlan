@@ -10,6 +10,7 @@ namespace UniversitySite.Models
         private IEnumerable<Grade> _studentGrades;
         public int StudentID { get; }
         public IEnumerable<Grade> StudentGrades { get { return _studentGrades; } set { _studentGrades = value; } }
+
         public GradesListView(IEnumerable<Grade> Repository, int ID)
         {
             StudentID = ID;

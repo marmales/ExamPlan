@@ -10,22 +10,13 @@ using Domain.Concrete;
 
 namespace Domain.ExamsCalculator
 {
-    public class Vertex
+    public class ExamVertex
     {
-        // =============================================    PRIVATE VARIABLES    ============================================= //
-        //private readonly int _subjectID
         private Exam _exam;
         private DateTime? _date;
         private IEnumerable<Student> StudentsList;
-        // =============================================       PROPERTIES        ============================================= //
 
-        public double LengthInMinutes
-        {
-            get
-            {
-                return _exam.Duration.TotalMinutes;
-            }
-        }
+        public double LengthInMinutes { get { return _exam.Duration.TotalMinutes; } }
         public DateTime? StartHour
         {
             get
@@ -47,15 +38,13 @@ namespace Domain.ExamsCalculator
         }
         public int Color { get; set; }
 
-        // =============================================      CONSTRUCTORS       ============================================= //
-        public Vertex(IEnumerable<Student> students, Exam exam)
+        public ExamVertex(IEnumerable<Student> students, Exam exam)
         { 
            StudentsList = students;
             _exam = exam;
         }
 
-        // =============================================     PUBLIC METHODS     ============================================= //
-        public static bool FindConflicts(Vertex v1, Vertex v2)
+        public static bool FindConflicts(ExamVertex v1, ExamVertex v2)
         {
             foreach (Student item in v1.StudentsList)
             {
@@ -65,7 +54,7 @@ namespace Domain.ExamsCalculator
             return false;
         }
 
-        public static explicit operator Exam(Vertex vertex)
+        public static explicit operator Exam(ExamVertex vertex)
         {
             Exam tmp = new Exam
             {

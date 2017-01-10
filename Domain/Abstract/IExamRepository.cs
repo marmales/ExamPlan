@@ -9,5 +9,6 @@ namespace Domain.Abstract
     public interface IExamRepository
     {
         IEnumerable<Exam> Exams { get; }
+        
     }
 }

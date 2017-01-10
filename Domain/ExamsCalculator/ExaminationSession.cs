@@ -7,33 +7,29 @@ using System.Threading.Tasks;
 using System.Web;
 namespace Domain.ExamsCalculator
 {
-    public class Graph
+    public class ExaminationSession
     {
-        // =============================================    PRIVATE VARIABLES    ============================================= //
-        private IList<Vertex> _vertexes;
+        
+        private IList<ExamVertex> _vertexes;
         private bool[,] _adjacencyMatrix;
-        private DateTime _beggining;
-        // =============================================       PROPERTIES        ============================================= //
+        private DateTime _firstExamDate;
+        
         public int Capacity { get { return _vertexes.Count; } }
 
-        // =============================================      CONSTRUCTORS       ============================================= //
-        public Graph(IList<Vertex> vertexes, DateTime FirstExamTime)
+        
+        public ExaminationSession(IList<ExamVertex> vertexes, DateTime FirstExamDate)
         {
             _vertexes = vertexes;
-            _beggining = FirstExamTime;
+            this._firstExamDate = FirstExamDate;
         }
 
-        // =============================================     PUBLIC METHODS     ============================================= //
-        public IList<Vertex> ColorOurGraph()
+        
+        public IList<ExamVertex> ColorOurGraph()
         {
-            CreateMatrix(); // Set adjacencyMatrix
+            CreateAdjacencyMatrix(); 
             bool connected; // this variable checks if current vertex has the same color as his neighbour (in adjacency matrix)
 
-            foreach (var item in _vertexes)
-            {
-                item.StartHour = _beggining;
-                item.Color = 0;
-            }
+            setStartDate();
 
             for (int i = 0; i < this.Capacity; i++)
             {
@@ -48,10 +44,8 @@ namespace Domain.ExamsCalculator
             return _vertexes;
         }
 
-        public void GetJSdata(string pathy) // Zapisywanie wyniku działania programu do pliku z rozszerzeniem "*.JS
+        public void CreateJSdata(string pathy)
         {
-            //tables.Add("exams", writeList());
-
             var path =  HttpContext.Current.Server.MapPath(pathy);
 
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(path, false))
@@ -62,15 +56,14 @@ namespace Domain.ExamsCalculator
         }
 
 
-        // =============================================     PRIVATE METHODS     ============================================= 
-        private void CreateMatrix() // Conflict Matrix
+        private void CreateAdjacencyMatrix()
         {
             _adjacencyMatrix = new bool[this.Capacity, this.Capacity];
             for (int i = 0; i < this.Capacity; i++)
             {
                 for (int j = 0; j < i; j++)
                 {
-                    _adjacencyMatrix[i, j] = Vertex.FindConflicts(_vertexes[i], _vertexes[j]);
+                    _adjacencyMatrix[i, j] = ExamVertex.FindConflicts(_vertexes[i], _vertexes[j]);
                     _adjacencyMatrix[j, i] = _adjacencyMatrix[i, j];
                 }
             }
@@ -100,9 +93,16 @@ namespace Domain.ExamsCalculator
             return false;
         }
 
-        
+        private void setStartDate()
+        {
+            foreach (var item in _vertexes)
+            {
+                item.StartHour = _firstExamDate;
+                item.Color = 0;
+            }
+        }
 
-        private string writeNodes() // Creates variable for .js file ( var node =.... )
+        private string writeNodes()
         {
             string nodes = "var nodes = [";
 
@@ -111,7 +111,7 @@ namespace Domain.ExamsCalculator
 
             return nodes + "]";
         }
-        private string writeEdge() // Creates variable for .js file ( var vertex =.... )
+        private string writeEdge()
         {
             string edges = "var edges = [";
 
@@ -122,32 +122,15 @@ namespace Domain.ExamsCalculator
 
             return edges + "]";
         }
-        //private string writeList() // Creates variable for .js file ( var exams =.... )
-        //{
-        //    string exams = "";
 
-        //    for (int i = 0; i < this.Capacity; i++)
-        //        exams += exam(_vertexes[i]);
-
-        //    return exams;
-        //}
-
-        private string node(Vertex node, int i) // Example: {id:0,label:Analiza,group:1} -> group is the Vertex color
+        private string node(ExamVertex Examnode, int i) // Example: {id:0,label:Analiza,group:1} -> group is the Vertex color
         {
-            //return "{id:" + i + ",label:\"" + node.ExamName + "\",group:" + node.Color + "}";
-            return "{" + $@"id:{i},label:""{node.ExamName}"",group:{node.Color}" + "}";
+            return "{" + $@"id:{i},label:""{Examnode.ExamName}"",group:{Examnode.Color}" + "}";
         }
         private string edge(int i, int j) // Example: {from:2,to:4,color:"ffffff"} -> {from adjacencyMatrix[2], to adjacencyMatrix[4]}
         {
-            //return "{from:" + Convert.ToString(i) + ",to:" + Convert.ToString(j) + ",color:\"#ffffff\"}";
             return "{" + $"from:{i},to:{j},color:\"ffffff\"" + "}";
         }
-        //private string exam(Vertex node) // Example {myLabel:Analiza, myTime:"9:00 - 10:45}
-        //{
-        //    Vertex node1 = node;
-        //    //return "{myLabel:\"" + node.ExamName + "\", myTime:\"" + (7 + node.Color * 2) + ":00 - " + (8 + node.Color * 2) + ":45\"},";
-        //    return "{" +  $"myLabel:{node.ExamName}, myTime:{node.StartHour.ToString()} - {node.StartHour.Value.AddMinutes(node.LengthInMinutes).ToString()}" + "},";
-        //}
 
     }
 }

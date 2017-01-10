@@ -21,7 +21,7 @@ namespace UniversitySite.Controllers
         }
 
         [HttpGet]
-        public ActionResult CalculateExamDate() // Will print "Do you want to generate Exams Date and pass to calculateexamdate()
+        public ActionResult CalculateExamDate()
         {
             return View();
         }
@@ -35,14 +35,13 @@ namespace UniversitySite.Controllers
         }
             
 
-        public ActionResult Graph()// will display our graph based on conflict matrix
+        public ActionResult Graph()
         {
 
             if (modelView == null)
                 modelView = new ExamsListView(StudentRepo.Students, ExamRepo.Exams, new DateTime(2016, 06, 12, 8, 0, 0));
 
             modelView.SaveFile("~/Scripts/tables.js");
-            //ViewBag.Exams = modelView.ExamsDate;
 
             return View();
         }

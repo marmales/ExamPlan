@@ -13,5 +13,6 @@ namespace Domain.Concrete
         EFDbContext context = new EFDbContext();
 
         public IEnumerable<Exam> Exams { get { return context.Exams; } }
+
     }
 }

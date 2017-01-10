@@ -9,29 +9,36 @@ namespace UniversitySite.Models
 {
     public class ExamsListView
     {
-        private Graph _examList;
-        private IList<Vertex> _vertexes = new List<Vertex>();
+        private ExaminationSession _examList;
+        private IList<ExamVertex> _vertexes = new List<ExamVertex>();
+        private IEnumerable<Student> _students;
 
-        public IEnumerable<Exam> Exams
+
+        public IEnumerable<Exam> getGeneratedExams
         {
             get { return _examList.ColorOurGraph().Select(x => (Exam)x); }
         }
         
+        public ExamsListView(IEnumerable<Student> students, IEnumerable<Exam> exams, DateTime SetFirstExamDate)
+        {
+            _students = students;
+            foreach (Exam item in exams)
+            {
+                _vertexes.Add(new ExamVertex( getStudentsByExam(item), item));
+            }
+
+            _examList = new ExaminationSession(_vertexes, SetFirstExamDate);
+        }
+
         public void SaveFile(string path)
         {
             _examList.ColorOurGraph();
-            _examList.GetJSdata(path);
+            _examList.CreateJSdata(path);
         }
-        //public string ExamsDate { get { _examList.CreateMatrix(); return _examList.GetJSdata("exams"); } }
 
-        public ExamsListView(IEnumerable<Student> students, IEnumerable<Exam> exams, DateTime SetFirstExamDate)
+        private IEnumerable<Student> getStudentsByExam(Exam checkedExam)
         {
-            foreach (Exam item in exams)
-            {
-                _vertexes.Add(new Vertex(students.Where(x => x.StudentsLists.Any(y => y.Class.SubjectID == item.SubjectID)), item));
-            }
-
-            _examList = new Graph(_vertexes, SetFirstExamDate);
+            return _students.Where(x => x.StudentsLists.Any(y => y.Class.SubjectID == checkedExam.SubjectID));
         }
     }
 }

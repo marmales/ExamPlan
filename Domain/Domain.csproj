@@ -97,8 +97,8 @@
     <Compile Include="Entities\StudentsList.cs" />
     <Compile Include="Entities\Subject.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
-    <Compile Include="ExamsCalculator\Graph.cs" />
-    <Compile Include="ExamsCalculator\Vertex.cs" />
+    <Compile Include="ExamsCalculator\ExaminationSession.cs" />
+    <Compile Include="ExamsCalculator\ExamVertex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
